@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import '../styles/nav-bar.css'
+import '../styles/BattleCard.css'
 import { Navbar } from '../components/Navbar'
 
 

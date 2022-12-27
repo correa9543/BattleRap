@@ -1,0 +1,29 @@
+/* *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+} */
+
+.card-container{
+    margin-top: 90px;
+    border-radius: 5px;
+    border: 0.2px #FFF solid;
+    height: 60%;
+    width: 20%;
+    position: absolute;
+}
+
+/* .card-container:hover{
+
+} */
+
+.img-container{
+    height: 60%;
+    width: 100%;
+    border-radius: 90%;
+}
+
+.battle-card-img{
+    height: 30%;
+    width: 20%;
+}
