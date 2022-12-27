@@ -6,7 +6,7 @@
 
 .card-container{
     margin-top: 90px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 0.2px #FFF solid;
     height: 60%;
     width: 20%;
@@ -18,12 +18,18 @@
 } */
 
 .img-container{
-    height: 60%;
+    height: 100%;
     width: 100%;
-    border-radius: 90%;
+    /* margin-top: 40px; */
+    border-radius: 10px;
+    /* top: 30%; */
 }
 
 .battle-card-img{
-    height: 30%;
-    width: 20%;
+    height:100%;
+    width: 100%;
+    /* border-radius: 100%; */
+    object-fit: fill;
+    overflow: hidden;
+    /* padding-top: 20px; */
 }

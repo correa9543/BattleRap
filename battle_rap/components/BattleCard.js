@@ -1,13 +1,18 @@
 import React from "react"
 import PropTypes from "prop-types";
+import Image from 'next/image'
+
+
 
 export const BattleCard = (props) => {
 
     return(
         <div className="card-container">
             <div className="img-container">
-                <img className ="battle-card-img" src={props.picPath} alt="" />
+                <Image className="battle-card-img" src={props.picPath} alt="Picture does not work" width={100} height= {300}/>
+                {/* <img src={props.picPath} className ="battle-card-img"  alt="Picture does not work" /> */}
             </div>
+            
             <div className='name-container'>
                 <h2>Battler: {props.name}</h2>
             </div>
