@@ -7,29 +7,53 @@
 .card-container{
     margin-top: 90px;
     border-radius: 10px;
-    border: 0.2px #FFF solid;
+    border: 0.2px #000 solid;
     height: 60%;
     width: 20%;
     position: absolute;
+    background-image: url(/jesus.png);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 4px 5px 5px #000;
+
 }
 
-/* .card-container:hover{
-
-} */
+.card-container:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
 
 .img-container{
     height: 100%;
     width: 100%;
-    /* margin-top: 40px; */
     border-radius: 10px;
-    /* top: 30%; */
+    object-fit: fill;
 }
 
 .battle-card-img{
     height:100%;
     width: 100%;
-    /* border-radius: 100%; */
+    border-radius: 10px;
     object-fit: fill;
     overflow: hidden;
     /* padding-top: 20px; */
+}
+
+.info{
+    padding: 8px 2px;
+}
+
+.battler-info{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.info-background{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
