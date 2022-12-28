@@ -7,6 +7,7 @@ import { BattleCard } from '../components/BattleCard.js'
 export const Battlers = () => {
     return(
         <>
+            <BattleCard picPath='/jesus.png' name="Jesus" views="390" numberBattles ="4"/>
             <BattleCard picPath='/banana.jpeg' name="Jesus" views="390" numberBattles ="4"/>
         </>
         

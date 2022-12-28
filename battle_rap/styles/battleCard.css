@@ -4,6 +4,11 @@
     padding: 0;
 } */
 
+.battleCards-container{
+    display: flex;
+    justify-content: space-between;
+}
+
 .card-container{
     margin-top: 90px;
     border-radius: 10px;
@@ -11,10 +16,11 @@
     height: 60%;
     width: 20%;
     position: absolute;
-    background-image: url(/jesus.png);
+    /* background-image: url(/jesus.png); */
     background-size: cover;
     background-position: center;
     box-shadow: 4px 5px 5px #000;
+    display: block;
 
 }
 
@@ -53,7 +59,7 @@
     position: relative;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }

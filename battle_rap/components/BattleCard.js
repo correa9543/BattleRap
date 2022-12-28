@@ -7,22 +7,17 @@ import Image from 'next/image'
 export const BattleCard = (props) => {
 
     return(
-        <div className="card-container">
-            {/* <div className="img-container"> */}
-                {/* <Image className="battle-card-img" src={props.picPath} alt="Picture does not work" width={1000} height= {618}/> */}
-                {/* <img src={props.picPath} className ="battle-card-img"  alt="Picture does not work"/> */}
-            {/* </div> */}
-            
+        <div className="card-container" style={{backgroundImage: `url(${props.picPath})`}}>
             <div className= 'battler-info'>
                 <div className="info-background">
                     <div className='name-container info'>
-                        <h2>Battler: {props.name}</h2>
+                        <h2>{props.name}</h2>
                     </div>
                     <div className='numberBattles-container info'>
-                        <p>Battles: {parseInt(props.numberBattles)}</p>
+                        <h3>Battles: {parseInt(props.numberBattles)}</h3>
                     </div>
                     <div className="views-container info">
-                        <p>Views: {parseInt(props.views)}</p>
+                        <h3>Views: {parseInt(props.views)}</h3>
                     </div>
                 </div>
                 
