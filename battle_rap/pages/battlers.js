@@ -6,12 +6,10 @@ import { BattleCard } from '../components/BattleCard.js'
 
 export const Battlers = () => {
     return(
-        <>
+        <div className='battleCards-container'>
             <BattleCard picPath='/jesus.png' name="Jesus" views="390" numberBattles ="4"/>
-            <BattleCard picPath='/banana.jpeg' name="Jesus" views="390" numberBattles ="4"/>
-        </>
-        
-
+            <BattleCard picPath='/banana.jpeg' name="Banana" views="490" numberBattles ="4"/>
+        </div>
     );
 }
 
