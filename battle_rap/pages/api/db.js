@@ -11,7 +11,7 @@ export default async function handler(req, res){
     });
 
     try{
-        const query = "select name from battlers";
+        const query = "select * from battlers";
         const values = [];
         const [data] = await dbConnection.execute(query, values);
         dbConnection.end();
@@ -23,4 +23,4 @@ export default async function handler(req, res){
 
 }
 
-
+// modules.export = dbConnection;
