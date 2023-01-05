@@ -61,7 +61,7 @@ var battlerNames = [
     "Midwest Miles", "Gwitty", "Swamp", "Reepah Rell", "Bankhead", "Goddie Lumenati", "Fettuccini 20", "Tink Da Demon",
     "Eazy The Block Captain", "Tone Montana", "Street Hymns", "Don Marino", "Emerson Kennedy", "Cali Smoove", "Yung Grizz",
     "Bedaffi Green", "Brooklyn Carter", "Teewhy", "Illanoiz", "Franchise", "Jmorr", "Ace Amin", "Lu Castro", "Billy Boondocks",
-    "Nunn Nunn", "Anibus", "Ha Double", "Piranha", "Cyssero", "Ish Mula", "Presidential Dubz", "Mickwy Factz", "Stuey Newton",
+    "Nunn Nunn", "Anibus", "Ha Double", "Piranha", "Cyssero", "Ish Mula", "Presidential Dubz", "Mickey Factz", "Stuey Newton",
     "Holmzie Da God", "Presidentil Dubz", "Johnie Alcatraz", "Your Honor", "Dre Vishiss", "So Severe", "Lexx Luthor", "J Fox",
     "Cocky", "Mack Mel", " R Streetz", "Deacon Frost", "Fonz", "Sheed Happens", "Barz Major", "Jey The Nite Wing", "Quban",
     "Mo Mula", "Gutta", "Real Name Brandon", "Diesel", "Zeus Da God", "Yoshi G", "J-Money", "Piff", "Cakes", "Buddyfe", "J2",
@@ -147,7 +147,7 @@ function getLeftName(array, index){
 
     if(index === 0){
         // console.log("returning left name from base case")
-        return getBestMatch(array[index]);
+        return array[0].charAt(0).toUpperCase() + string.slice(1);
     }
 
     // console.log(array);
@@ -160,6 +160,9 @@ function getLeftName(array, index){
         if(!battlerNames.includes(tempString)){
             // console.log("returning left name from loop")
             console.log("Left name is: ")
+            if(previousName.indexOf(" ") === -1){
+                return previousName.charAt(0).toUpperCase() + previousName.slice(1);
+            }
             return getBestMatch(previousName);
             
         }
@@ -178,7 +181,7 @@ function getLeftName(array, index){
 function getRightName(array, index){
     if(index === array.length - 1){
         // console.log("returning right name from base case")
-        return getBestMatch(array[index]);
+        return array[array.length-1].charAt(0).toUpperCase() + previousName.slice(1);
     }
     // console.log(array);
     // console.log("right index " + index);
@@ -190,6 +193,9 @@ function getRightName(array, index){
         if(!battlerNames.includes(tempString)){
             // console.log("returning right name from loop")
             // console.log("previous name is " + previousName)
+            if(previousName.indexOf(" ") === -1){
+                return previousName.charAt(0).toUpperCase() + string.slice(1);
+            }
             return getBestMatch(previousName);
         }
 
