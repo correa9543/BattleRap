@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Image from 'next/image'
 
 
-
 export const BattleCard = (props) => {
 
     return(
