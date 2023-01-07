@@ -2,6 +2,7 @@ var db = require('./db.js')
 const stringSimilarity = require("string-similarity");
 
 var pageKey = "";
+const apiKey = "AIzaSyAFSDkW1DnyLDEqnBUI0TKVz5WxG8BXKss";
 var battlerNames = [
     "roc", "tay", "tay roc", "clips", "charlie", "charlie clips", "arsonal", "dna", "holla", "hitman", "hitman holla",
     "k-shine", "tsu", "surf", "tsu surf", "conceited", "hollow", "da", "hollow da", "hollow da don", "don", "da don",
@@ -78,20 +79,16 @@ var battlerNames = [
 
 
 export default async function getAPIresults(req, res){
-    const apiKey = "AIzaSyAFSDkW1DnyLDEqnBUI0TKVz5WxG8BXKss";
     const order = "viewCount";
     const maxResults = "1";
     const channelId = "UCflIAeM03JFL9ml03LwYF-g";
     const part = "snippet";
     var endPoint = null;
-    var vidIds = [];
+    var vidID = "";
     var battlerObjs = [];
+    var views = 0;
     
-
     try{
-        // do{
-            
-        // }while(pageKey !== null)
 
         if(pageKey !== null){
             endPoint = `https://www.googleapis.com/youtube/v3/search?part=${part}&key=${apiKey}&channelId=${channelId}&maxResults=${maxResults}&order=${order}&pageToken=${pageKey}`
@@ -104,15 +101,21 @@ export default async function getAPIresults(req, res){
         const data = await response.json();  
 
         //Get the video IDs from the information so that we can get info for each battler
-        vidIds = getVidIds(data, vidIds);
-        getNames(data);
-        // vidIds.push(...getVidIds(data, vidIds));
+        vidID = getVidId(data);
+        views = await getViewCount();
         
+        console.log("number of views " + views);
+       
+        const names = getNames(data);
+        const leftName = names.left;
+        const right = names.right;
+
+        // vidIds.push(...getVidIds(data, vidIds));
         
 
         // console.log(pageKey);
         res.status(200).json({results: data});
-        console.log(data);
+        console.log(data.items.id);
 
 
     }catch(error){
@@ -121,37 +124,50 @@ export default async function getAPIresults(req, res){
 
 }
 
+function createBattlerObjects(data){
+
+}
+
 function getNames(data){
     
     // const vidTitle = data.items[0].snippet.title;
     var string = "Smack / URL Presents DNA vs Yung ILL | URLTV"
     var lowerCaseString = string.toLowerCase();
-    // const index = string.indexOf("VS");
     const array = lowerCaseString.split(" ");
-    console.log(array);
+    // console.log(array);
     let index = array.indexOf("vs");
-    // console.log("index of VS: " + index);
 
     var leftName = getLeftName(array, index-1);
     var rightName = getRightName(array, index+1);
 
-    // console.log("K-SHINE VS DNA SMACK URL | URLtv")
-    // console.log(lowerCaseString)
-    console.log(leftName);
-    console.log(rightName);
+    // console.log(leftName);
+    // console.log(rightName);
+
+    return {left: leftName, right: rightName};
+}
+
+async function getViewCount() {
+    const vidID = '3ns1fySKPyk';
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${vidID}&key=${apiKey}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const viewCount = data.items[0].statistics.viewCount;
+        return viewCount;
+        // console.log(`View count: ${viewCount}`);
+      } catch (error) {
+        console.error(error);
+      }
+
+    // return viewCount;
 
 }
 
 function getLeftName(array, index){
-    // console.log("left index " + index);
 
     if(index === 0){
-        // console.log("returning left name from base case")
         return array[0].charAt(0).toUpperCase() + string.slice(1);
     }
-
-    // console.log(array);
-
 
     var tempString = "";
     var previousName = "";
@@ -172,27 +188,21 @@ function getLeftName(array, index){
             tempString = " " + tempString;
         }
     }
-    // console.log(tempString);
     return getBestMatch(tempString);
 }
 
 
-// "TAY ROC VS KYD SLADE RELEASE TRAILER (DROPPING X-MAS DAY SUN DEC 25)"
 function getRightName(array, index){
     if(index === array.length - 1){
-        // console.log("returning right name from base case")
         return array[array.length-1].charAt(0).toUpperCase() + previousName.slice(1);
     }
-    // console.log(array);
-    // console.log("right index " + index);
+ 
 
     var tempString = "";
     var previousName = "";
     for(let i = index; i < array.length; i++){
-        tempString = tempString + array[i];   //"KYD"
+        tempString = tempString + array[i];
         if(!battlerNames.includes(tempString)){
-            // console.log("returning right name from loop")
-            // console.log("previous name is " + previousName)
             if(previousName.indexOf(" ") === -1){
                 return previousName.charAt(0).toUpperCase() + string.slice(1);
             }
@@ -200,6 +210,7 @@ function getRightName(array, index){
         }
 
         previousName = tempString;
+
         if(i !== array.length - 1){
             tempString += " ";
         }
@@ -213,26 +224,30 @@ function getBestMatch(name){
     return closestName.bestMatch.target;
 }
 
-async function getVidIds(data, vidIds){
-    const itemObjs = data.items;
+async function getVidId(data){
+    // const itemObjs = data.items;
     
-    itemObjs.map(obj => vidIds.push(obj.id.videoId));
+    // itemObjs.map(obj => vidIds.push(obj.id.videoId));
 
-    if(data.nextPageToken !== null){
-        pageKey = data.nextPageToken;
-    }
+    // if(data.nextPageToken !== null){
+    //     pageKey = data.nextPageToken;
+    // }
 
-    return vidIds;
+    // return vidIds;
+
+    return data.items[0].id.videoId;
 
 }
 
-export async function getVideoViews(videoId){
+// export async function getVideoViews(videoId){
 
-    const response = await fetch('https://www.googleapis.com/youtube/v3/videos?id={videoID&key}&key=${apiKey}&part=statistics');
+//     const response = await fetch('https://www.googleapis.com/youtube/v3/videos?id={videoID&key}&key=${apiKey}&part=statistics');
 
-    const viewCount = (await response.json()).items[0].statistics.viewCount;
+//     const viewCount = (await response.json()).items[0].statistics.viewCount;
+
+//     // return viewCount;
     
-    console.log('The video has ben viewed ${viewCount} times');
-}
+//     // console.log('The video has ben viewed ${viewCount} times');
+// }
 
 // getAPIresults();
